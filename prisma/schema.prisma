@@ -1,0 +1,90 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["interactiveTransactions"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  wallets      Wallet[]
+  telegramId   BigInt        @unique @map("telegram_id")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  notification Notification?
+  alarm        Alarm[]
+  timezone     String        @default("Europe/London")
+
+  @@map(name: "users")
+}
+
+model Notification {
+  id                       Int                      @id @default(autoincrement())
+  networks                 NetworksInNotification[]
+  isReminderActive         Boolean                  @default(false) @map("is_reminder_active")
+  isAlarmActive            Boolean                  @default(false) @map("is_alarm_active")
+  notificationReminderTime String[]                 @map("notification_reminder_time")
+  user                     User                     @relation(fields: [userId], references: [id])
+  userId                   Int                      @unique @map("user_id")
+
+  @@map(name: "notifications")
+}
+
+model NetworksInNotification {
+  id                  Int           @id @default(autoincrement())
+  notification        Notification? @relation(fields: [notificationId], references: [id])
+  notificationId      Int?          @map("notification_id")
+  reminderNetwork     Network?      @relation("reminder_networks", fields: [reminderNetworkId], references: [id])
+  reminderNetworkId   Int?          @unique @map("reminder_network_id")
+  governanceNetwork   Network?      @relation("governance_networks", fields: [governanceNetworkId], references: [id])
+  governanceNetworkId Int?          @unique @map("governance_network_id")
+  governanceTimeStart DateTime?     @map("governance_time_start")
+
+  @@map(name: "networks_in_notification")
+}
+
+model Wallet {
+  id        Int      @id @default(autoincrement())
+  address   String
+  name      String?
+  network   Network  @relation(fields: [networkId], references: [id])
+  networkId Int      @map("network_id")
+  User      User     @relation(fields: [userId], references: [id])
+  userId    Int      @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  iv        String?
+
+  @@map(name: "wallets")
+}
+
+model Network {
+  id                      Int                      @id @default(autoincrement())
+  name                    String                   @unique
+  fullName                String                   @map("full_name")
+  resource                Resource?                @relation(fields: [resourceId], references: [id])
+  resourceId              Int                      @unique @map("resource_id")
+  publicUrl               String                   @map("public_url")
+  wallet                  Wallet[]
+  governanceNotifications NetworksInNotification[] @relation("reminder_networks")
+  reminderNotifications   NetworksInNotification[] @relation("governance_networks")
+
+  @@map(name: "networks")
+}
+
+model Resource {
+  id       Int       @id @default(autoincrement())
+  site     String
+  discord  String?
+  twitter  String
+  youtube  String?
+  blog     String?
+  github   String
+  reddit   String?
+  telegram String?
+  network  Network[]
+
+  @@map(name: "resources")
+}
