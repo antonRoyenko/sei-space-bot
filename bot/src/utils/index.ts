@@ -10,7 +10,6 @@ export { getDenom } from "./getFilterDenom";
 export { getPnlDate } from "./getPnlDate";
 export { validation } from "./validation";
 export { isNumber } from "./isNumber";
-export { menuCreator } from "./menuCreator";
 export { nFormatter } from "./nFormatter";
 export { restRequest } from "./restRequest";
 export { template } from "./template";

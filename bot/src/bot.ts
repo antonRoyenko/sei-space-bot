@@ -36,7 +36,6 @@ import {
   walletMenu,
   walletRemoveMenu,
   notificationMenu,
-  proposalMenu,
   assetsMenu,
 } from "@bot/menu";
 import { en } from "./constants/en";
@@ -78,7 +77,6 @@ bot.use(walletMenu);
 bot.use(notificationMenu);
 bot.use(assetsMenu);
 walletMenu.register(walletRemoveMenu);
-notificationMenu.register(proposalMenu);
 
 bot.use(helpFeature);
 bot.use(resetFeature);

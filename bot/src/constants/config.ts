@@ -10,4 +10,5 @@ export const seiResorces = {
   twitter: "https://twitter.com/SeiNetwork",
   github: "https://t.me/seinetwork",
   telegram: "https://t.me/seinetwork",
+  blog: "https://blog.seinetwork.io",
 };

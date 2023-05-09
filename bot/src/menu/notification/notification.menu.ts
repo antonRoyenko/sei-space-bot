@@ -1,16 +1,31 @@
 import { Context } from "@bot/types";
-import { proposalMenu } from "@bot/menu";
-import { menuCreator } from "@bot/utils/menuCreator";
-import { en } from "@bot/constants/en";
+import { Menu, MenuRange } from "@grammyjs/menu";
+import { notificationsService } from "@bot/services";
 
-const menuList = [
-  {
-    text: en.notification.menu.proposals,
-    callback: (ctx: Context) =>
-      ctx.reply(en.notification.proposalMenu.title, {
-        reply_markup: proposalMenu,
-      }),
-  },
-];
+export const notificationMenu = new Menu<Context>("governance", {
+  autoAnswer: false,
+}).dynamic(async (ctx) => {
+  const range = new MenuRange<Context>();
 
-export const notificationMenu = menuCreator("notification", menuList);
+  const { isGovActive, isTwitterSubscribeActive, updateNotification } =
+    await notificationsService({
+      ctx,
+    });
+
+  range.text(isGovActive ? `🔔 Proposals` : `🔕 Proposals`, async (ctx) => {
+    await updateNotification({ triggerGovActivity: true });
+    ctx.menu.update();
+  });
+
+  range.row();
+
+  range.text(
+    isTwitterSubscribeActive ? `🔔 Twitter` : `🔕 Twitter`,
+    async (ctx) => {
+      await updateNotification({ triggerTwitterSubscriptionActivity: true });
+      ctx.menu.update();
+    }
+  );
+
+  return range;
+});
