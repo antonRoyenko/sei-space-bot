@@ -1,6 +1,7 @@
 import { Context } from "@bot/types";
 import { Menu, MenuRange } from "@grammyjs/menu";
 import { notificationsService } from "@bot/services";
+import dayjs from "dayjs";
 
 export const notificationMenu = new Menu<Context>("governance", {
   autoAnswer: false,
@@ -11,9 +12,10 @@ export const notificationMenu = new Menu<Context>("governance", {
     await notificationsService({
       ctx,
     });
+  const time = dayjs().toDate();
 
   range.text(isGovActive ? `🔔 Proposals` : `🔕 Proposals`, async (ctx) => {
-    await updateNotification({ triggerGovActivity: true });
+    await updateNotification({ triggerGovActivity: true, govTimeSubscription: time });
     ctx.menu.update();
   });
 

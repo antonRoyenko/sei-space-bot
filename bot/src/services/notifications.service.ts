@@ -7,9 +7,11 @@ type Notification = {
   updateNotification: ({
     triggerTwitterSubscriptionActivity,
     triggerGovActivity,
+    govTimeSubscription,
   }: {
     triggerTwitterSubscriptionActivity?: boolean;
     triggerGovActivity?: boolean;
+    govTimeSubscription?: Date;
   }) => Promise<void>;
 };
 
@@ -34,9 +36,11 @@ export async function notificationsService({
   const updateNotification = async ({
     triggerTwitterSubscriptionActivity,
     triggerGovActivity,
+    govTimeSubscription,
   }: {
     triggerTwitterSubscriptionActivity?: boolean;
     triggerGovActivity?: boolean;
+    govTimeSubscription?: Date;
   }) => {
     await notificationDao.upsertNotification({
       where: {
@@ -50,6 +54,7 @@ export async function notificationsService({
           ? !isTwitterSubscribeActive
           : undefined,
         isGovActive: triggerGovActivity ? !isGovActive : undefined,
+        govTimeSubscription,
       },
     });
   };

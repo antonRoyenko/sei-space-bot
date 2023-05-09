@@ -1,7 +1,7 @@
 <p align="center">
 <img src="server/assets/logo_small.png" width="120" height="120" text-align="center">
 </p>
-<h1 align="center"><a href="https://t.me/CosmosSpaceBot">Cosmos space bot <br /></a></h1>
+<h1 align="center"><a href="https://t.me/SeiSpaceBot">Cosmos space bot <br /></a></h1>
 
 ---
 
@@ -28,7 +28,7 @@ Website - https://reactivestation.dev/
 <b>⚠️ The bot doesn't use any secure information, only your public address in encryption format, 
 so no one except you has access to them.
 </b>
-<p>Cosmos Space bot was developed to integrate the Cosmos Ecosystem into Telegram with many valuable 
+<p>Sei Space bot was developed to integrate the Sei Network into Telegram with many valuable 
 features that help manage wallets and assets, view network statistics, 
 set up various types of notifications, and view useful resources.
 

@@ -11,7 +11,6 @@ export const fetchAvailableBalances = async (url: string, address: string) => {
       `${url}cosmos/bank/v1beta1/balances/${address}`
     );
     const res = await req.json();
-    console.log(85955, res);
 
     return {
       accountBalances: {

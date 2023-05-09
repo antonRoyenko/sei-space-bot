@@ -1,21 +1,19 @@
 export const en = {
-  aboutBot:
-    "Statistic, Personal assets, Notification in Cosmos-based networks.",
+  aboutBot: "Statistic, Personal assets, Notification in Sei network.",
   descriptionBot:
-    "This bot can send Crypto prices, Wallet(s) assets, and different types of notifications",
+    "This bot can send Wallet(s) assets, network statistics, and different types of notifications",
   start: {
     command: "start",
     text:
-      "I'm the @CosmosSpaceBot \n\n" +
+      "I'm the @SeiSpaceBot \n\n" +
       "<b>I have a lot of useful functions such as:</b>  \n\n" +
       "<i>Manage wallets</i>\n" +
       "<i>View cryptocurrency assets</i>\n" +
       "<i>Network statistics</i>\n" +
       "<i>Show active proposals</i>\n" +
       "<i>List of resources about networks</i>\n" +
-      "<i>Daily reminder</i>\n" +
-      "<i>Price alert</i>\n" +
       "<i>Subscribe to networks proposals</i>\n\n" +
+      "<i>Subscribe to Sei twitter feed</i>\n\n" +
       "/help get full command list \n\n" +
       "Reach Out to the Developer @ReactiveGuy",
   },
@@ -50,6 +48,7 @@ export const en = {
         "Choose the Action \n\n" +
         "Note: Your addresses stores in encrypted format,\n" +
         "so it's absolutely secure. You can check it from the " +
+        // TODO change link
         "<a href='https://github.com/antonRoyenko/cosmos-space-bot/blob/8059c2257faa4b16a8be948c52134030ae240e03/bot/src/features/wallet.feature.ts'>link</a>",
       manually: "👇 Add Manually",
       bulkImport: "📁 Add via .csv",
@@ -92,8 +91,7 @@ export const en = {
         "<i>💸 Delegated</i> — %{delegate} \n\n" +
         "<i>🔐 Unbonding</i> — %{unbonding} \n\n" +
         "<i>🤑 Staking Reward</i> — %{reward} \n\n" +
-        "<b>Total %{denom}</b> — %{totalCrypto} \n" +
-        "<b>CW20 tokens: </b> \n%{cw20}\n",
+        "<b>Total %{denom}</b> — %{totalCrypto} \n",
       total: "%{number} <i>%{networkName}</i> — <b>%{amount}</b> \n\n",
     },
   },
@@ -154,7 +152,7 @@ export const en = {
       "I hope this bot you is useful for you. \n\n" +
       "If you have question or proposals how I can improve it " +
       "you can always reach me out @ReactiveGuy. \n" +
-      "Here is more info about the bot implementation and <a href='https://github.com/antonRoyenko/cosmos-space-bot'>Github</a>",
+      "Here is more info about the bot implementation and <a href='https://github.com/antonRoyenko/sei-space-bot'>Github</a>",
   },
   reset: {
     command: "reset",

@@ -7,16 +7,11 @@ import {
   fetchRewards,
 } from "@bot/api";
 import { getDenom, formatToken } from "@bot/utils";
-import { BalanceData, ChainInfo, Cw20 } from "@bot/types/general";
+import { BalanceData, ChainInfo } from "@bot/types/general";
 import { seiChainConfig } from "@bot/chains/sei";
 
-export const getBalance = async (
-  publicUrl: string,
-  address: string,
-  prefix: string
-) => {
+export const getBalance = async (publicUrl: string, address: string) => {
   const chain = seiChainConfig;
-  const cw20tokens: Cw20 = [];
 
   const promises = [
     fetchAvailableBalances(publicUrl, address),
@@ -55,14 +50,10 @@ export const getBalance = async (
     []
   );
 
-  return formatAllBalance(formattedRawData, chain, cw20tokens);
+  return formatAllBalance(formattedRawData, chain);
 };
 
-const formatAllBalance = (
-  data: BalanceData,
-  chain: ChainInfo,
-  cw20tokens: Cw20
-) => {
+const formatAllBalance = (data: BalanceData, chain: ChainInfo) => {
   try {
     const { primaryTokenUnit, tokenUnits } = chain;
     const available = getDenom(
@@ -125,16 +116,6 @@ const formatAllBalance = (
       .plus(rewardsAmount.value)
       .toFixed(tokenUnits[primaryTokenUnit].exponent);
 
-    const cw20 = cw20tokens
-      .filter((item) => Number(item.balance) > 0)
-      .map((item) =>
-        formatToken(
-          item.balance,
-          { exponent: item.decimal, display: item.symbol },
-          item.symbol
-        )
-      );
-
     return {
       available: availableAmount,
       delegate: delegateAmount,
@@ -146,7 +127,6 @@ const formatAllBalance = (
         baseDenom: availableAmount.baseDenom,
         exponent: availableAmount.exponent,
       },
-      cw20tokens: cw20,
     };
   } catch (e) {
     console.error("Error in formatAllBalance: " + e);
@@ -171,7 +151,6 @@ const formatAllBalance = (
         baseDenom: "",
         exponent: 0,
       },
-      cw20tokens: [],
     };
   }
 };
