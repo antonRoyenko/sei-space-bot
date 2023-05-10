@@ -9,7 +9,7 @@ export const en = {
       "<b>I have a lot of useful functions such as:</b>  \n\n" +
       "<i>Manage wallets</i>\n" +
       "<i>View cryptocurrency assets</i>\n" +
-      "<i>Network statistics</i>\n" +
+      "<i>Network statistics in atlantic-2 network</i>\n" +
       "<i>Show active proposals</i>\n" +
       "<i>List of resources about networks</i>\n" +
       "<i>Subscribe to networks proposals</i>\n\n" +
