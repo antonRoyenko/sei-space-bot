@@ -61,7 +61,7 @@ export function cron(server: any) {
         },
       },
       {
-        cronTime: "* * * * *",
+        cronTime: "*/10 * * * *",
 
         onTick: async () => {
           const notifications = await notificationDao.getAllNotifications();

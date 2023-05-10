@@ -12,7 +12,7 @@ export const en = {
       "<i>Network statistics in atlantic-2 network</i>\n" +
       "<i>Show active proposals</i>\n" +
       "<i>List of resources about networks</i>\n" +
-      "<i>Subscribe to networks proposals</i>\n\n" +
+      "<i>Subscribe to networks proposals</i>\n" +
       "<i>Subscribe to Sei twitter feed</i>\n\n" +
       "/help get full command list \n\n" +
       "Reach Out to the Developer @ReactiveGuy",
