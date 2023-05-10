@@ -65,7 +65,7 @@ export const en = {
     deleteWallet: "Choose the wallet that you want to remove",
     removedWallet: "Wallet %{address} was successful removed",
     removedAllWallets: "All wallets were removed",
-    emptyWallet: "You don't have wallets, please add it",
+    emptyWallet: "You don't have wallets, please add it /wallet",
     bulkImportAddressInvalid:
       "Check addresses in file and reload file. If you don't want, fill in /reset",
     bulkImportNetworkInvalid:
@@ -145,6 +145,7 @@ export const en = {
       "🚨 New proposal from %{networkName}❗🚨 \n\n" +
       "%{title}  \n\n" +
       "%{description}",
+    newTweet: "🚨 New tweet from %{networkName}❗🚨 \n\n" + "%{text}  \n",
   },
   about: {
     command: "about",

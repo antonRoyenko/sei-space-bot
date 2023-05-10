@@ -11,7 +11,7 @@ import {
 
 export const walletMenu = new Menu<Context>("wallets", {
   autoAnswer: false,
-}).dynamic(async (ctx) => {
+}).dynamic(async () => {
   const range = new MenuRange<Context>();
 
   range

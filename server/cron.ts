@@ -1,6 +1,6 @@
 import fastifyCron from "fastify-cron";
 import dayjs from "dayjs";
-import { usersService, proposalsService } from "@bot/services";
+import { proposalsService, feedService, usersService } from "@bot/services";
 import { notificationDao } from "@bot/dao";
 import { sendNotification } from "@server/telegram";
 import { template } from "@bot/utils";
@@ -12,7 +12,7 @@ export function cron(server: any) {
   server.register(fastifyCron, {
     jobs: [
       {
-        cronTime: "* * * * *",
+        cronTime: "*/10 * * * *",
 
         onTick: async () => {
           const notifications = await notificationDao.getAllNotifications();
@@ -20,6 +20,8 @@ export function cron(server: any) {
           for (const notification of notifications) {
             const { createProposals, proposals: userProposals } =
               await proposalsService(notification.userId);
+            const { getUser } = usersService();
+            const user = await getUser({ id: notification.userId });
 
             if (!notification.isGovActive) return false;
 
@@ -39,7 +41,8 @@ export function cron(server: any) {
               if (
                 dayjs(notification.govTimeSubscription).isBefore(
                   dayjs(proposals.votingStartTime)
-                ) && !currentUsetProposal?.isShowed
+                ) &&
+                !currentUsetProposal?.isShowed
               ) {
                 await sendNotification(
                   template(en.cron.newProposal, {
@@ -48,11 +51,42 @@ export function cron(server: any) {
                     description: proposals.description,
                   }),
                   "HTML",
-                  Number(notification.userId)
+                  Number(user?.telegramId)
                 );
 
                 await createProposals(String(proposal.proposalId));
               }
+            }
+          }
+        },
+      },
+      {
+        cronTime: "* * * * *",
+
+        onTick: async () => {
+          const notifications = await notificationDao.getAllNotifications();
+
+          for (const notification of notifications) {
+            const { getUser } = usersService();
+            const { feedItems, updateFeedItem } = await feedService(
+              notification.userId
+            );
+
+            const user = await getUser({ id: notification.userId });
+
+            for (const item of feedItems) {
+              if (item.isShowed) return;
+
+              await sendNotification(
+                template(en.cron.newTweet, {
+                  networkName: "Sei Network",
+                  text: item.text,
+                }),
+                "HTML",
+                Number(user?.telegramId)
+              );
+
+              await updateFeedItem(item.id);
             }
           }
         },

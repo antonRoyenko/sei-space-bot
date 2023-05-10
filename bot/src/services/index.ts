@@ -4,3 +4,4 @@ export { usersService } from "./users.service";
 export { walletsService } from "./wallets.service";
 export { networksService } from "./networks.service";
 export { proposalsService } from "./proposals.service";
+export { feedService } from "./feed.service";

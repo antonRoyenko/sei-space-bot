@@ -15,7 +15,10 @@ export const notificationMenu = new Menu<Context>("governance", {
   const time = dayjs().toDate();
 
   range.text(isGovActive ? `🔔 Proposals` : `🔕 Proposals`, async (ctx) => {
-    await updateNotification({ triggerGovActivity: true, govTimeSubscription: time });
+    await updateNotification({
+      triggerGovActivity: true,
+      govTimeSubscription: time,
+    });
     ctx.menu.update();
   });
 
